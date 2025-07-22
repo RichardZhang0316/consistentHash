@@ -4,10 +4,11 @@ package consistentHash
 import (
 	"errors"
 	"fmt"
-	"github.com/spaolacci/murmur3"
 	"sort"
 	"strconv"
 	"sync"
+
+	"github.com/spaolacci/murmur3"
 )
 
 var (
@@ -112,8 +113,6 @@ func (v *vnode) String() string {
 
 // Get finds the closest member for a given key
 func (ch *ConsistentHash) Get(key []byte) (string, error) {
-	ch.mutex.Lock()
-	defer ch.mutex.Unlock()
 	if len(ch.vnodes) == 0 {
 		return "", ErrNoMembers
 	}
